@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dijkstra's Algorithm</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        form {
+            margin: 20px auto;
+            width: 50%;
+            background-color: #f4f4f4;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        label, input, select, button {
+            display: block;
+            width: 100%;
+            margin-bottom: 15px;
+        }
+        label {
+            font-weight: bold;
+        }
+        input, select, button {
+            padding: 8px;
+            font-size: 16px;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .results {
+            margin-top: 30px;
+        }
+        .results table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        .results th, .results td {
+            border: 1px solid #ddd;
+            text-align: center;
+            padding: 10px;
+        }
+        .results th {
+            background-color: #f0f0f0;
+        }
+    </style>
+</head>
+<body>
+    <h1>Dijkstra's Algorithm - Shortest Path Finder</h1>
+    <form method="POST">
+        <label for="num_nodes">Enter Number of Points:</label>
+        <input type="number" id="num_nodes" name="num_nodes" min="1" required>
+
+        <div id="nodes"></div>
+        
+        <label for="num_edges">Enter Number of Edges:</label>
+        <input type="number" id="num_edges" name="num_edges" min="1" required>
+
+        <div id="edges"></div>
+        
+        <label for="source_node">Enter Starting Point:</label>
+        <input type="text" id="source_node" name="source_node" required>
+
+        <button type="submit">Calculate Shortest Path</button>
+    </form>
+
+    {% if shortest_paths %}
+        <div class="results">
+            <h2>Shortest Paths from {{ source_node }}</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Point</th>
+                        <th>Distance</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for point, distance in shortest_paths.items() %}
+                        <tr>
+                            <td>{{ point }}</td>
+                            <td>{{ distance }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% endif %}
+
+    <script>
+        document.getElementById('num_nodes').addEventListener('input', function () {
+            const numNodes = this.value;
+            const nodesContainer = document.getElementById('nodes');
+            nodesContainer.innerHTML = '';
+
+            for (let i = 0; i < numNodes; i++) {
+                const nodeLabel = document.createElement('label');
+                nodeLabel.textContent = `Name of Point ${i + 1}:`;
+                const nodeInput = document.createElement('input');
+                nodeInput.type = 'text';
+                nodeInput.name = `node_${i}`;
+                nodeInput.required = true;
+
+                nodesContainer.appendChild(nodeLabel);
+                nodesContainer.appendChild(nodeInput);
+            }
+        });
+
+        document.getElementById('num_edges').addEventListener('input', function () {
+            const numEdges = this.value;
+            const edgesContainer = document.getElementById('edges');
+            edgesContainer.innerHTML = '';
+
+            for (let i = 0; i < numEdges; i++) {
+                const edgeLabel = document.createElement('label');
+                edgeLabel.textContent = `Details of Edge ${i + 1}:`;
+
+                const sourceInput = document.createElement('input');
+                sourceInput.type = 'text';
+                sourceInput.name = `edge_${i}_source`;
+                sourceInput.placeholder = 'Source';
+                sourceInput.required = true;
+
+                const destinationInput = document.createElement('input');
+                destinationInput.type = 'text';
+                destinationInput.name = `edge_${i}_destination`;
+                destinationInput.placeholder = 'Destination';
+                destinationInput.required = true;
+
+                const weightInput = document.createElement('input');
+                weightInput.type = 'number';
+                weightInput.name = `edge_${i}_weight`;
+                weightInput.placeholder = 'Weight';
+                weightInput.required = true;
+
+                edgesContainer.appendChild(edgeLabel);
+                edgesContainer.appendChild(sourceInput);
+                edgesContainer.appendChild(destinationInput);
+                edgesContainer.appendChild(weightInput);
+            }
+        });
+    </script>
+</body>
+</html>

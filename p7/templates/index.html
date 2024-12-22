@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>0/1 Knapsack Problem Solver</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f0f0f0;
+        }
+        h1 {
+            color: #333;
+        }
+        form {
+            margin-bottom: 20px;
+        }
+        input[type="text"], input[type="number"] {
+            padding: 10px;
+            width: 300px;
+            margin: 10px 0;
+        }
+        input[type="submit"] {
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        table {
+            border-collapse: collapse;
+            width: 60%;
+            margin-top: 20px;
+        }
+        table, th, td {
+            border: 1px solid black;
+            padding: 10px;
+            text-align: center;
+        }
+        th {
+            background-color: #007BFF;
+            color: white;
+        }
+        td {
+            background-color: #fff;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>0/1 Knapsack Problem</h1>
+    
+    <form method="POST">
+        <label for="capacity">Knapsack Capacity:</label><br>
+        <input type="number" id="capacity" name="capacity" required><br>
+
+        <label for="num_items">Number of Items:</label><br>
+        <input type="number" id="num_items" name="num_items" required><br>
+
+        <label for="profits">Enter Profits (comma-separated):</label><br>
+        <input type="text" id="profits" name="profits" required><br>
+
+        <label for="weights">Enter Weights (comma-separated):</label><br>
+        <input type="text" id="weights" name="weights" required><br>
+
+        <input type="submit" value="Solve">
+    </form>
+
+    {% if max_profit %}
+        <h2>Results</h2>
+        <p><strong>Maximum Profit:</strong> {{ max_profit }}</p>
+
+        <h3>Dynamic Programming Table</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Items/Weight</th>
+                    {% for i in range(W + 1) %}
+                    <th>{{ i }}</th>
+                    {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for i in range(n + 1) %}
+                <tr>
+                    <td>Item {{ i }}</td>
+                    {% for j in range(W + 1) %}
+                    <td>{{ table[i][j] }}</td>
+                    {% endfor %}
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
+
+</body>
+</html>
+

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Coin Change Problem</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 20px;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+        h1 {
+            color: #444;
+        }
+        form {
+            margin-bottom: 20px;
+        }
+        input[type="text"], input[type="number"] {
+            padding: 10px;
+            margin-right: 10px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        input[type="text"] {
+            width: 300px; 
+        }
+        button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            background-color: #007bff;
+            color: #fff;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            padding: 12px;
+            border: 1px solid #ddd;
+            text-align: center;
+            font-size: 16px;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        .used-coins {
+            margin-top: 20px;
+        }
+        .used-coins span {
+            display: inline-block;
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 20px;
+            background-color: #d1ecf1;
+            margin: 5px;
+            font-size: 16px;
+            color: #0c5460;
+        }
+    </style>
+</head>
+<body>
+    <h1>Coin Change Problem</h1>
+    <form method="POST">
+        <label for="coins">Enter coin denominations (separated by space):</label>
+        <input type="text" id="coins" name="coins" required>
+        <label for="amount">Enter the amount:</label>
+        <input type="number" id="amount" name="amount" required>
+        <button type="submit">Calculate</button>
+    </form>
+    {% if result %}
+    <h2>Results</h2>
+    <h3>Minimum Coins Required: {{ result.min_coins }}</h3>
+    <div class="used-coins">
+        <h3>Coins Used:</h3>
+        {% for coin in result.used_coins %}
+        <span>{{ coin }}</span>
+        {% endfor %}
+    </div>
+    <h3>Coin Change Table:</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Denomination</th>
+                {% for j in range(0, result.matrix[0]|length) %}
+                <th>{{ j }}</th>
+                {% endfor %}
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in result.matrix %}
+            <tr>
+                <th>{{ result.denominations[loop.index0] }}</th>
+                {% for value in row %}
+                <td>{{ value }}</td>
+                {% endfor %}
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% endif %}
+</body>
+</html>

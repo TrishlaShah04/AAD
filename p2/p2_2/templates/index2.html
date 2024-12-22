@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fibonacci Sequence Calculation</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .container {
+            max-width: 800px;
+            margin-top: 50px;
+        }
+        .chart-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .table {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="text-center">Fibonacci Sequence Calculation</h1>
+        <form method="post" class="mt-4">
+            <div class="form-group">
+                <label for="max_month">Enter the number of months:</label>
+                <input type="text" class="form-control" id="max_month" name="max_month" placeholder="space-separated" required>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">Submit</button>
+        </form>
+
+        {% if error %}
+        <div class="alert alert-danger mt-4">{{ error }}</div>
+        {% endif %}
+
+        {% if results %}
+        <h2 class="text-center mt-5">Results</h2>
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>Month</th>
+                    <th>Iterative Method (Rabbit Pairs)</th>
+                    <th>Iterative Steps</th>
+                    <th>Recursive Method (Rabbit Pairs)</th>
+                    <th>Recursive Steps</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for result in results %}
+                <tr>
+                    <td>{{ result[0] }}</td>
+                    <td>{{ result[1] }}</td>
+                    <td>{{ result[2] }}</td>
+                    <td>{{ result[3] }}</td>
+                    <td>{{ result[4] }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <div class="chart-container">
+            <h2 class="text-center mt-4">Comparative Chart</h2>
+            <img src="{{ url_for('static', filename='plot.png') }}" alt="Comparison Chart" class="img-fluid">
+        </div>
+        {% endif %}
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

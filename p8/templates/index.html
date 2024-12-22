@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Longest Common Subsequence</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #007bff;
+        }
+        label, button {
+            display: block;
+            width: 100%;
+            margin: 10px 0;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        p {
+            font-size: 18px;
+        }
+        h2, h3 {
+            color: #007bff;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        table, th, td {
+            border: 1px solid #ccc;
+        }
+        th, td {
+            padding: 10px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Find Longest Common Subsequence</h1>
+        <form method="POST">
+            <label for="seq1">Enter Sequence 1 </label>
+            <input type="text" id="seq1" name="seq1" required>
+
+            <label for="seq2">Enter Sequence 2 </label>
+            <input type="text" id="seq2" name="seq2" required>
+
+            <button type="submit">Find LCS</button>
+        </form>
+
+        {% if result %}
+        <h2>Longest Common Subsequence:</h2>
+        <p>{{ result }}</p>
+
+        <h3>Input Sequences:</h3>
+        <p>Sequence 1: {{ seq1 }}</p>
+        <p>Sequence 2: {{ seq2 }}</p>
+
+        <h3>Dynamic Programming Matrix:</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th></th>
+                    <th></th>
+                    {% for el in seq2 %}
+                    <th>{{ el }}</th>
+                    {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th></th>
+                    <td>0</td>
+                    {% for _ in seq2 %}
+                    <td>0</td>
+                    {% endfor %}
+                </tr>
+                {% for i in range(seq1|length) %}
+                <tr>
+                    <th>{{ seq1[i] }}</th>
+                    <td>0</td>
+                    {% for j in range(seq2|length) %}
+                    <td>{{ matrix[i+1][j+1] }}</td>
+                    {% endfor %}
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% endif %}
+    </div>
+</body>
+</html>
+
+

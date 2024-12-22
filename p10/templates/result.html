@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Huffman Result</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        h1, h3 {
+            color: #333;
+        }
+        .result-container {
+            background: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .codebook {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 5px;
+            background: #e9ecef;
+        }
+        .codebook ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        .codebook li {
+            padding: 5px 0;
+        }
+        .btn-back {
+            margin-top: 20px;
+            padding: 10px 15px;
+            background: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .btn-back:hover {
+            background: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <h1>Huffman Encoding and Decoding Result</h1>
+    <div class="result-container">
+        <h3>Huffman Codebook:</h3>
+        <div class="codebook">
+            <ul>
+                {% for char, code in codebook.items() %}
+                    <li><strong>{{ char }}:</strong> {{ code }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        <h3>Encoded Text:</h3>
+        <p>{{ encoded_text }}</p>
+        <h3>Decoded Text:</h3>
+        <p>{{ decoded_text }}</p>
+        <button class="btn-back" onclick="window.location.href='/'">Go back</button>
+    </div>
+</body>
+</html>
